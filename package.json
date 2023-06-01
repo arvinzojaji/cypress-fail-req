@@ -1,0 +1,59 @@
+{
+  "name": "cypress-fail-on-network-request",
+  "version": "1.0.2",
+  "description": "fail cypress test on network request",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "npm run build:be & npm run build:fe",
+    "build:fe": "npx rimraf dist/ && tsc",
+    "build:be": "node ./backend/app.js",
+    "dev": "npm run dev:fe & npm run dev:be",
+    "dev:fe": "nodemon --watch './src' --ext 'ts' --exec 'npm run build:fe'",
+    "dev:be": "nodemon --watch './backend/app.js' --ext 'js' --exec 'npm run build:be'",
+    "prettier": "prettier --write \"**/*\"",
+    "prettier:check": "prettier --check \"**/*\"",
+    "lint": "tsc --noEmit && tsc -p ./test/tsconfig.json && tsc -p ./cypress/tsconfig.json",
+    "test": "npm run test:ut && npm run test:it",
+    "test:ut": "ts-mocha test/unitTest.ts",
+    "test:it": "ts-mocha test/integrationTest.ts --timeout 60000",
+    "verify": "npm run build && npm run lint && npm run prettier:check && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arvinzojaji/cypress-fail-on-network-request.git"
+  },
+  "keywords": [
+    "cypress",
+    "testing",
+    "network-request"
+  ],
+  "author": "arvinzojaji",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arvinzojaji/cypress-fail-on-network-request/issues"
+  },
+  "homepage": "https://github.com/arvinzojaji/cypress-fail-on-network-request#readme",
+  "dependencies": {
+    "chai": "^4.3.4"
+  },
+  "devDependencies": {
+    "@types/chai": "4.3.5",
+    "@types/expect": "24.3.0",
+    "@types/mocha": "10.0.1",
+    "@types/type-detect": "4.0.1",
+    "cors": "2.8.5",
+    "cypress": "12.13.0",
+    "express": "4.18.1",
+    "mocha": "10.2.0",
+    "prettier": "2.8.8",
+    "prettier-plugin-organize-imports": "3.2.2",
+    "rimraf": "5.0.1",
+    "ts-mocha": "10.0.0",
+    "typescript": "5.0.4",
+    "nodemon": "2.0.22"
+  }
+}
